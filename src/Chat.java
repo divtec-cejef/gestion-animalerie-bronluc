@@ -16,6 +16,6 @@ public class Chat extends Animal {
 
     @Override
     public void soinQuotidien() {
-     System.out.println("caresser");
+     System.out.println("car");
     }
 }

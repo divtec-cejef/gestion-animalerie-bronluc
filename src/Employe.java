@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Employe {
     private String nom;
     private String prenom;
     private int salaire;
     private String rôle;
+
 
     public Employe(String nom, String prenom, int salaire, String rôle) {
         this.nom = nom;
