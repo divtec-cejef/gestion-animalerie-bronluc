@@ -1,44 +1,37 @@
 import java.util.Scanner;
 
 public class ConsoleIO {
-    private static Scanner scanner = new Scanner(System.in);
-
     /**
-     * Affiche un message normal à l'utilisateur
+     * Affiche le bruit du chien
      */
-    public static void afficherMessage(String message) {
-        System.out.println(message);
+    public static void bruitChien() {
+        System.out.println("Waouf !");
     }
 
     /**
-     * Affiche un message d'erreur
+     * Affiche le bruit du chat
      */
-    public static void afficherErreur(String erreur) {
-        System.err.println("ERREUR: " + erreur);
+    public static void bruitChat() {
+        System.out.println("Miaou !");
     }
 
     /**
-     * Lit un entier avec validation automatique
-     * Redemande tant que l'entrée n'est pas un nombre valide
+     * Affiche le bruit du lapin
      */
-    public static int lireEntier(String prompt) {
-        System.out.print(prompt);
-        while (!scanner.hasNextInt()) {
-            scanner.next(); // Consommer l'entrée invalide
-            System.err.println("Veuillez entrer un nombre valide.");
-            System.out.print(prompt);
-        }
-        int valeur = scanner.nextInt();
-        scanner.nextLine(); // Consommer le retour à la ligne
-        return valeur;
+    public static void bruitLapin() {
+        System.out.println("Couic couic !");
     }
 
-    /**
-     * Lit une chaîne de caractères
-     */
-    public static String lireChaine(String prompt) {
-        System.out.print(prompt);
-        return scanner.nextLine();
+    public static void soinQuotidienChat() {
+        System.out.println("Carresser");
+    }
+
+    public static void soinQuotidienLapin() {
+        System.out.println("Nourrir");
+    }
+
+    public static void soinQuotidienChien() {
+        System.out.println("Brosser");
     }
 
     /**

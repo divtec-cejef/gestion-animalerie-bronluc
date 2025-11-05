@@ -1,6 +1,3 @@
-// ==========================================
-// Fichier: Animalerie.java
-// ==========================================
 import java.util.ArrayList;
 
 public class Animalerie {
@@ -13,12 +10,11 @@ public class Animalerie {
     }
 
     public void demarrer() {
-        ConsoleIO.afficherMessage("🌟 Bienvenue dans le système de gestion d'animalerie ! 🌟\n");
 
         boolean continuer = true;
         while (continuer) {
             ConsoleIO.afficherMenu();
-            int choix = ConsoleIO.lireEntier("👉 Votre choix: ");
+            int choix = ConsoleIO.lireEntier("Votre choix: ");
 
             switch (choix) {
                 case 1:
@@ -44,7 +40,7 @@ public class Animalerie {
                     break;
                 case 0:
                     continuer = false;
-                    ConsoleIO.afficherMessage("\n👋 Au revoir et à bientôt !");
+                    ConsoleIO.afficherMessage("\nAu revoir et à bientôt !");
                     break;
                 default:
                     ConsoleIO.afficherErreur("Choix invalide. Veuillez choisir entre 0 et 7.");
@@ -53,7 +49,7 @@ public class Animalerie {
     }
 
     public void ajouterAnimal() {
-        ConsoleIO.afficherMessage("\n--- 🐕 Ajouter un animal ---");
+        ConsoleIO.afficherMessage("\n--- Ajouter un animal ---");
         ConsoleIO.afficherMessage("1. Chien");
         ConsoleIO.afficherMessage("2. Chat");
         ConsoleIO.afficherMessage("3. Lapin");
@@ -80,7 +76,7 @@ public class Animalerie {
         }
 
         animaux.add(animal);
-        ConsoleIO.afficherMessage("✅ " + nom + " a été ajouté avec succès !");
+        ConsoleIO.afficherMessage(nom + " a été ajouté avec succès !");
     }
 
     public void supprimerAnimal() {
@@ -94,7 +90,7 @@ public class Animalerie {
 
         if (index >= 0 && index < animaux.size()) {
             animaux.remove(index);
-            ConsoleIO.afficherMessage("✅ Animal retiré de l'animalerie.");
+            ConsoleIO.afficherMessage("Animal retiré de l'animalerie.");
         } else {
             ConsoleIO.afficherErreur("Index invalide. Veuillez choisir entre 0 et " + (animaux.size() - 1));
         }
@@ -102,11 +98,11 @@ public class Animalerie {
 
     public void listerAnimaux() {
         if (animaux.isEmpty()) {
-            ConsoleIO.afficherMessage("\n📭 Aucun animal dans l'animalerie.");
+            ConsoleIO.afficherMessage("\nAucun animal dans l'animalerie.");
             return;
         }
 
-        ConsoleIO.afficherMessage("\n=== 📋 Liste des animaux ===");
+        ConsoleIO.afficherMessage("\n=== Liste des animaux ===");
         for (int i = 0; i < animaux.size(); i++) {
             Animal a = animaux.get(i);
             System.out.println("[" + i + "] " + a.getClass().getSimpleName() +
@@ -115,7 +111,7 @@ public class Animalerie {
     }
 
     public void ajouterEmploye() {
-        ConsoleIO.afficherMessage("\n--- 👨‍⚕️ Ajouter un employé ---");
+        ConsoleIO.afficherMessage("\n--- Ajouter un employé ---");
         ConsoleIO.afficherMessage("1. Soigneur");
         ConsoleIO.afficherMessage("2. Vétérinaire");
 
@@ -139,7 +135,7 @@ public class Animalerie {
         }
 
         employes.add(employe);
-        ConsoleIO.afficherMessage("✅ " + prenom + " " + nom + " a été embauché(e) !");
+        ConsoleIO.afficherMessage(prenom + " " + nom + " a été embauché(e) !");
     }
 
     public void supprimerEmploye() {
@@ -153,7 +149,7 @@ public class Animalerie {
 
         if (index >= 0 && index < employes.size()) {
             employes.remove(index);
-            ConsoleIO.afficherMessage("✅ Employé retiré.");
+            ConsoleIO.afficherMessage("Employé retiré.");
         } else {
             ConsoleIO.afficherErreur("Index invalide. Veuillez choisir entre 0 et " + (employes.size() - 1));
         }
@@ -161,11 +157,11 @@ public class Animalerie {
 
     public void listerEmployes() {
         if (employes.isEmpty()) {
-            ConsoleIO.afficherMessage("\n📭 Aucun employé.");
+            ConsoleIO.afficherMessage("\nAucun employé.");
             return;
         }
 
-        ConsoleIO.afficherMessage("\n=== 📋 Liste des employés ===");
+        ConsoleIO.afficherMessage("\n=== Liste des employés ===");
         for (int i = 0; i < employes.size(); i++) {
             Employe e = employes.get(i);
             System.out.println("[" + i + "] " + e.getClass().getSimpleName());
@@ -182,7 +178,7 @@ public class Animalerie {
             return;
         }
 
-        ConsoleIO.afficherMessage("\n--- 💼 Effectuer une tâche ---");
+        ConsoleIO.afficherMessage("\n--- Effectuer une tâche ---");
         listerEmployes();
         int indexEmploye = ConsoleIO.lireEntier("\nChoisir un employé: ");
 
@@ -206,6 +202,6 @@ public class Animalerie {
         // Appeler la méthode effectuerTache sur l'objet employe
         employe.effectuerTache(animal);
 
-        ConsoleIO.afficherMessage("✅ Tâche effectuée avec succès !");
+        ConsoleIO.afficherMessage("Tâche effectuée avec succès !");
     }
 }

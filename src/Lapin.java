@@ -10,12 +10,11 @@ public class Lapin extends Animal {
     }
 
     @Override
-    public void bruit () {
-        System.out.println("Honk Honk!");
+    public void bruit() {
+        ConsoleIO.bruitLapin();
     }
 
     @Override
     public void soinQuotidien() {
-        System.out.println("nourrir");
+        ConsoleIO.soinQuotidienLapin();
     }
-}

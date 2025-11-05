@@ -10,12 +10,11 @@ public class Chien extends Animal {
     }
 
     @Override
-    public void bruit () {
-        System.out.println("Wouaf!");
+    public void bruit() {
+        ConsoleIO.bruitChien();
     }
 
     @Override
     public void soinQuotidien() {
-        System.out.println("Brosser");
+        ConsoleIO.soinQuotidienChien();
     }
-}

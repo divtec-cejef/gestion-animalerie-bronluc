@@ -10,12 +10,12 @@ public class Chat extends Animal {
     }
 
     @Override
-    public void bruit () {
-        System.out.println("Miaou!");
+    public void bruit() {
+        ConsoleIO.bruitChat();
     }
 
     @Override
     public void soinQuotidien() {
-     System.out.println("car");
+     ConsoleIO.soinQuotidienChat();
     }
 }
