@@ -10,11 +10,12 @@ public class Animalerie {
     }
 
     public void demarrer() {
+        ConsoleIO.afficherBienvenue();
 
         boolean continuer = true;
         while (continuer) {
             ConsoleIO.afficherMenu();
-            int choix = ConsoleIO.lireEntier("Votre choix: ");
+            int choix = ConsoleIO.lireEntier("👉 Votre choix: ");
 
             switch (choix) {
                 case 1:
@@ -40,48 +41,67 @@ public class Animalerie {
                     break;
                 case 0:
                     continuer = false;
-                    ConsoleIO.afficherMessage("\nAu revoir et à bientôt !");
+                    ConsoleIO.afficherAuRevoir();
                     break;
                 default:
-                    ConsoleIO.afficherErreur("Choix invalide. Veuillez choisir entre 0 et 7.");
+                    ConsoleIO.afficherChoixInvalide();
             }
         }
     }
 
     public void ajouterAnimal() {
-        ConsoleIO.afficherMessage("\n--- Ajouter un animal ---");
-        ConsoleIO.afficherMessage("1. Chien");
-        ConsoleIO.afficherMessage("2. Chat");
-        ConsoleIO.afficherMessage("3. Lapin");
+        ConsoleIO.afficherTitreAjoutAnimal();
+        ConsoleIO.afficherMenuTypesAnimaux();
 
         int type = ConsoleIO.lireEntier("Type d'animal (1-3): ");
         String nom = ConsoleIO.lireChaine("Nom de l'animal: ");
         int age = ConsoleIO.lireEntier("Âge (en années): ");
 
+        int choixSante = ConsoleIO.lireEntier("\nÉtat de santé (1-3): ");
+        ConsoleIO.afficherMenuEtatSante();
+
+        // Convertir le choix en EtatSante avec un switch
+        EtatSante sante;
+        switch (choixSante) {
+            case 1:
+                sante = EtatSante.SAIN;
+                break;
+            case 2:
+                sante = EtatSante.SOIN_LEGER;
+                break;
+            case 3:
+                sante = EtatSante.SOIN_INTENSIF;
+                break;
+            default:
+                ConsoleIO.afficherErreur("Choix invalide, SAIN par défaut.");
+                sante = EtatSante.SAIN;
+        }
+        System.out.println(sante);
+
         Animal animal = null;
 
         switch (type) {
             case 1:
-                animal = new Chien(nom, age, EtatSante.SOIN_INTENSIF);
+                animal = new Chien(nom, age, sante);
                 break;
             case 2:
-                animal = new Chat(nom, age, EtatSante.SOIN);
+                animal = new Chat(nom, age, sante);
                 break;
             case 3:
-                animal = new Lapin(nom, age, EtatSante.SOIN_LEGER);
+                animal = new Lapin(nom, age, sante);
                 break;
             default:
-                ConsoleIO.afficherErreur("Type d'animal invalide.");
+                ConsoleIO.afficherTypeAnimalInvalide();
                 return;
         }
 
         animaux.add(animal);
-        ConsoleIO.afficherMessage(nom + " a été ajouté avec succès !");
+        ConsoleIO.afficherAnimalAjoute(nom);
     }
 
     public void supprimerAnimal() {
         if (animaux.isEmpty()) {
-            ConsoleIO.afficherErreur("Aucun animal à supprimer.");
+            ConsoleIO.afficherAucunAnimalASupprimer();
             return;
         }
 
@@ -90,30 +110,28 @@ public class Animalerie {
 
         if (index >= 0 && index < animaux.size()) {
             animaux.remove(index);
-            ConsoleIO.afficherMessage("Animal retiré de l'animalerie.");
+            ConsoleIO.afficherAnimalSupprime();
         } else {
-            ConsoleIO.afficherErreur("Index invalide. Veuillez choisir entre 0 et " + (animaux.size() - 1));
+            ConsoleIO.afficherIndexAnimalInvalide(animaux.size() - 1);
         }
     }
 
     public void listerAnimaux() {
         if (animaux.isEmpty()) {
-            ConsoleIO.afficherMessage("\nAucun animal dans l'animalerie.");
+            ConsoleIO.afficherAucunAnimal();
             return;
         }
 
-        ConsoleIO.afficherMessage("\n=== Liste des animaux ===");
+        ConsoleIO.afficherTitreListeAnimaux();
         for (int i = 0; i < animaux.size(); i++) {
             Animal a = animaux.get(i);
-            System.out.println("[" + i + "] " + a.getClass().getSimpleName() +
-                    " - " + a.getAge() + " ans");
+            ConsoleIO.afficherAnimal(i, a.getClass().getSimpleName(), a.getAge());
         }
     }
 
     public void ajouterEmploye() {
-        ConsoleIO.afficherMessage("\n--- Ajouter un employé ---");
-        ConsoleIO.afficherMessage("1. Soigneur");
-        ConsoleIO.afficherMessage("2. Vétérinaire");
+        ConsoleIO.afficherTitreAjoutEmploye();
+        ConsoleIO.afficherMenuTypesEmployes();
 
         int type = ConsoleIO.lireEntier("Type d'employé (1-2): ");
         String nom = ConsoleIO.lireChaine("Nom: ");
@@ -130,17 +148,17 @@ public class Animalerie {
                 employe = new Veterinaire(nom, prenom, salaire, "Vétérinaire");
                 break;
             default:
-                ConsoleIO.afficherErreur("Type d'employé invalide.");
+                ConsoleIO.afficherTypeEmployeInvalide();
                 return;
         }
 
         employes.add(employe);
-        ConsoleIO.afficherMessage(prenom + " " + nom + " a été embauché(e) !");
+        ConsoleIO.afficherEmployeAjoute(prenom, nom);
     }
 
     public void supprimerEmploye() {
         if (employes.isEmpty()) {
-            ConsoleIO.afficherErreur("Aucun employé à supprimer.");
+            ConsoleIO.afficherAucunEmployeASupprimer();
             return;
         }
 
@@ -149,41 +167,41 @@ public class Animalerie {
 
         if (index >= 0 && index < employes.size()) {
             employes.remove(index);
-            ConsoleIO.afficherMessage("Employé retiré.");
+            ConsoleIO.afficherEmployeSupprime();
         } else {
-            ConsoleIO.afficherErreur("Index invalide. Veuillez choisir entre 0 et " + (employes.size() - 1));
+            ConsoleIO.afficherIndexEmployeInvalide(employes.size() - 1);
         }
     }
 
     public void listerEmployes() {
         if (employes.isEmpty()) {
-            ConsoleIO.afficherMessage("\nAucun employé.");
+            ConsoleIO.afficherAucunEmploye();
             return;
         }
 
-        ConsoleIO.afficherMessage("\n=== Liste des employés ===");
+        ConsoleIO.afficherTitreListeEmployes();
         for (int i = 0; i < employes.size(); i++) {
             Employe e = employes.get(i);
-            System.out.println("[" + i + "] " + e.getClass().getSimpleName());
+            ConsoleIO.afficherEmploye(i, e.getClass().getSimpleName());
         }
     }
 
     public void effectuerTache() {
         if (employes.isEmpty()) {
-            ConsoleIO.afficherErreur("Aucun employé disponible.");
+            ConsoleIO.afficherAucunEmployeDisponible();
             return;
         }
         if (animaux.isEmpty()) {
-            ConsoleIO.afficherErreur("Aucun animal disponible.");
+            ConsoleIO.afficherAucunAnimalDisponible();
             return;
         }
 
-        ConsoleIO.afficherMessage("\n--- Effectuer une tâche ---");
+        ConsoleIO.afficherTitreEffectuerTache();
         listerEmployes();
         int indexEmploye = ConsoleIO.lireEntier("\nChoisir un employé: ");
 
         if (indexEmploye < 0 || indexEmploye >= employes.size()) {
-            ConsoleIO.afficherErreur("Index employé invalide.");
+            ConsoleIO.afficherIndexEmployeInvalide();
             return;
         }
 
@@ -191,17 +209,15 @@ public class Animalerie {
         int indexAnimal = ConsoleIO.lireEntier("\nChoisir un animal: ");
 
         if (indexAnimal < 0 || indexAnimal >= animaux.size()) {
-            ConsoleIO.afficherErreur("Index animal invalide.");
+            ConsoleIO.afficherIndexAnimalInvalide();
             return;
         }
 
-        // Récupérer les objets depuis les listes
         Employe employe = employes.get(indexEmploye);
         Animal animal = animaux.get(indexAnimal);
 
-        // Appeler la méthode effectuerTache sur l'objet employe
         employe.effectuerTache(animal);
 
-        ConsoleIO.afficherMessage("Tâche effectuée avec succès !");
+        ConsoleIO.afficherTacheEffectuee();
     }
 }

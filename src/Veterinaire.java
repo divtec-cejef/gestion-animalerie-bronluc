@@ -9,8 +9,8 @@ public class Veterinaire extends Employe {
         return rôle;
     }
 
-    @Override
-    public void effectuerTache(Animal animal) {
-        System.out.println("améliorer santé");
-    }
+        @Override
+        public void effectuerTache(Animal animal) {
+            animal.ameliorerSante();
+        }
 }

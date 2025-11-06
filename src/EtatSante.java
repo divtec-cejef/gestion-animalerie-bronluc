@@ -1,5 +1,5 @@
 public enum EtatSante {
-    SOIN,
+    SAIN,
     SOIN_LEGER,
     SOIN_INTENSIF,
 }

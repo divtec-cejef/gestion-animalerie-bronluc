@@ -5,7 +5,7 @@ public class Chat extends Animal {
     }
 
     public EtatSante getEtatSante() {
-        EtatSante etatSante = EtatSante.SOIN;
+        EtatSante etatSante = EtatSante.SAIN;
         return etatSante;
     }
 

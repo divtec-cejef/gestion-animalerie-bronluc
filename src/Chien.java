@@ -18,3 +18,4 @@ public class Chien extends Animal {
     public void soinQuotidien() {
         ConsoleIO.soinQuotidienChien();
     }
+}

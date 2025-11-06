@@ -9,8 +9,9 @@ public class Soigneur extends Employe {
         return rôle;
     }
 
+    // Dans Soigneur.java
     @Override
     public void effectuerTache(Animal animal) {
-        System.out.println("soin quotidien");
+        animal.soinQuotidien();  // ← Appelle la méthode de l'animal
     }
 }

@@ -4,17 +4,28 @@ import java.util.List;
 public abstract class Animal {
     private String nom;
     private int âge;
-    private EtatSante etatSante;
+    private EtatSante sante;
 
 
     public Animal(String nom, int âge,  EtatSante etatSante) {
         this.nom = nom;
         this.âge = âge;
-        this.etatSante = etatSante;
+        this.sante = etatSante;
     }
 
     public int getAge() {
         return âge;
+    }
+
+    public void ameliorerSante() {
+        if (sante == EtatSante.SOIN_INTENSIF) {
+            sante = EtatSante.SOIN_LEGER;
+        } else if (sante == EtatSante.SOIN_LEGER) {
+            sante = EtatSante.SAIN;
+        }else{
+            ConsoleIO.afficherSanteDejaSain();
+        }
+        ConsoleIO.afficherNouvelEtatSante(sante);
     }
 
     public abstract void bruit();

@@ -18,3 +18,4 @@ public class Lapin extends Animal {
     public void soinQuotidien() {
         ConsoleIO.soinQuotidienLapin();
     }
+}
