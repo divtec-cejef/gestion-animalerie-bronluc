@@ -92,7 +92,7 @@ public class ConsoleIO {
     }
 
     public static void afficherSanteDejaSain() {
-        System.out.println("L'animal est déjà en parfaite santé ! ✨");
+        System.out.println("L'animal est déjà en parfaite santé !");
     }
 
     // ============= AJOUT ANIMAL =============
