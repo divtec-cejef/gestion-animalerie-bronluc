@@ -50,7 +50,7 @@ public class Animalerie {
                     ajouterAnimalConcours();
                     break;
                 case 10:
-                    afficherDetail();
+                    afficherDetailConcours();
                     break;
                 case 11:
                     lancerConcours();
@@ -264,9 +264,16 @@ public class Animalerie {
             return;
         }
 
+        int cap = concours.getCapacité();
+
         // Afficher la liste des animaux existants
         listerAnimaux();
         int indexAnimal = ConsoleIO.lireEntier("Choisir un animal à inscrire : ");
+
+        if (participants.size() >= cap) {
+            ConsoleIO.afficherErreur("Ce concours a assez de participants.");
+            return;
+        }
 
         // Vérifier que l'index est valide
         if (indexAnimal < 0 || indexAnimal >= animaux.size()) {
@@ -288,13 +295,14 @@ public class Animalerie {
         ConsoleIO.afficherMessage(a.getNom() + " inscrit au concours !");
     }
 
-    public void afficherDetail () {
+    public void afficherDetailConcours () {
 
             ConsoleIO.afficherTitreParticipantsConcours();
             for (int i = 0; i < participants.size(); i++) {
                 Animal a = participants.get(i);
                 ConsoleIO.afficherAnimal(i, a.getNom(), a.getAge());
             }
+            System.out.println("\n");
             ConsoleIO.afficherDetail(concours);
     }
 

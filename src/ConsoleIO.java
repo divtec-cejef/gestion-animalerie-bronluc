@@ -54,7 +54,7 @@ public class ConsoleIO {
         System.out.println("  7. Effectuer une tâche");
         System.out.println("  8. Créer un concours");
         System.out.println("  9. Ajouter un animal au concours ");
-        System.out.println(" 10. Afficher détail ");
+        System.out.println(" 10. Afficher détails concours");
         System.out.println(" 11. Lancer le concours ");
         System.out.println("  0. Quitter");
     }
@@ -197,7 +197,7 @@ public class ConsoleIO {
     // ============= LISTE EMPLOYÉS =============
 
     public static void afficherAucunEmploye() {
-        System.out.println("\nAucun employé.");
+        afficherErreur("\nAucun employé.");
     }
 
     public static void afficherTitreListeEmployes() {
