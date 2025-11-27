@@ -17,6 +17,14 @@ public abstract class Animal {
         return âge;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public EtatSante getSante() {
+        return sante;
+    }
+
     public void ameliorerSante() {
         if (sante == EtatSante.SOIN_INTENSIF) {
             sante = EtatSante.SOIN_LEGER;

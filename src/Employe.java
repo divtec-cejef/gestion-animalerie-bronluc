@@ -15,5 +15,9 @@ public abstract class Employe {
         this.rôle = rôle;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
     public abstract void effectuerTache(Animal animal);
 }

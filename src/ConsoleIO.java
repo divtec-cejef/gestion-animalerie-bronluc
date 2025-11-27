@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ConsoleIO {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     // ============= MÉTHODES D'AFFICHAGE =============
 
@@ -45,18 +45,22 @@ public class ConsoleIO {
     // ============= MENU =============
 
     public static void afficherMenu() {
-        System.out.println("  1. Ajouter un animal");
+        System.out.println("\n  1. Ajouter un animal");
         System.out.println("  2. Supprimer un animal");
         System.out.println("  3. Lister les animaux");
         System.out.println("  4. Ajouter un employé");
         System.out.println("  5. Supprimer un employé");
         System.out.println("  6. Lister les employés");
         System.out.println("  7. Effectuer une tâche");
+        System.out.println("  8. Créer un concours");
+        System.out.println("  9. Ajouter un animal au concours ");
+        System.out.println(" 10. Afficher détail ");
+        System.out.println(" 11. Lancer le concours ");
         System.out.println("  0. Quitter");
     }
 
     public static void afficherChoixInvalide() {
-        afficherErreur("Choix invalide. Veuillez choisir entre 0 et 7.");
+        afficherErreur("Choix invalide. Veuillez choisir entre 0 et 10.");
     }
 
     // ============= ANIMAUX - BRUITS =============
@@ -141,8 +145,16 @@ public class ConsoleIO {
         System.out.println("\nAucun animal dans l'animalerie.");
     }
 
+    public static void afficherAucunParticipant() {
+        System.out.println("\nAucun participant au concours");
+    }
+
     public static void afficherTitreListeAnimaux() {
         System.out.println("\n=== Liste des animaux ===");
+    }
+
+    public static void afficherTitreParticipantsConcours() {
+        System.out.println("\n=== Liste des participants du concours ===");
     }
 
     public static void afficherAnimal(int index, String type, int age) {
@@ -192,8 +204,8 @@ public class ConsoleIO {
         System.out.println("\n=== Liste des employés ===");
     }
 
-    public static void afficherEmploye(int index, String type) {
-        System.out.println("[" + index + "] " + type);
+    public static void afficherEmploye(int index, String rôle, String nom) {
+        System.out.println("[" + index + "] "+ rôle + " " + nom);
     }
 
     // ============= EFFECTUER TÂCHE =============
@@ -220,5 +232,9 @@ public class ConsoleIO {
 
     public static void afficherTacheEffectuee() {
         System.out.println("Tâche effectuée avec succès !");
+    }
+
+    public static void afficherDetail(Concours concours) {
+        System.out.println("Détails du concours :\nNom : " + concours.getNomConcours() + "\nLieu : " + concours.getLieu() + "\nCapacité : " + concours.getCapacité());
     }
 }

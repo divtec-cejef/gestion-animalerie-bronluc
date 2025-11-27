@@ -1,12 +1,16 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Animalerie {
     private ArrayList<Animal> animaux;
     private ArrayList<Employe> employes;
+    private ArrayList<Animal> participants;
+    private Concours concours;
 
     public Animalerie() {
         this.animaux = new ArrayList<>();
         this.employes = new ArrayList<>();
+        this.participants = new ArrayList<>();
     }
 
     public void demarrer() {
@@ -15,7 +19,7 @@ public class Animalerie {
         boolean continuer = true;
         while (continuer) {
             ConsoleIO.afficherMenu();
-            int choix = ConsoleIO.lireEntier("👉 Votre choix: ");
+            int choix = ConsoleIO.lireEntier(" Votre choix: ");
 
             switch (choix) {
                 case 1:
@@ -39,6 +43,18 @@ public class Animalerie {
                 case 7:
                     effectuerTache();
                     break;
+                case 8:
+                    creationConcours();
+                    break;
+                case 9:
+                    ajouterAnimalConcours();
+                    break;
+                case 10:
+                    afficherDetail();
+                    break;
+                case 11:
+                    lancerConcours();
+                    break;
                 case 0:
                     continuer = false;
                     ConsoleIO.afficherAuRevoir();
@@ -55,10 +71,10 @@ public class Animalerie {
 
         int type = ConsoleIO.lireEntier("Type d'animal (1-3): ");
         String nom = ConsoleIO.lireChaine("Nom de l'animal: ");
-        int age = ConsoleIO.lireEntier("Âge (en années): ");
+        int age = ConsoleIO.lireEntier("Âge (en années): \n");
 
-        int choixSante = ConsoleIO.lireEntier("\nÉtat de santé (1-3): ");
         ConsoleIO.afficherMenuEtatSante();
+        int choixSante = ConsoleIO.lireEntier("État de santé (1-3): ");
 
         // Convertir le choix en EtatSante avec un switch
         EtatSante sante;
@@ -125,7 +141,7 @@ public class Animalerie {
         ConsoleIO.afficherTitreListeAnimaux();
         for (int i = 0; i < animaux.size(); i++) {
             Animal a = animaux.get(i);
-            ConsoleIO.afficherAnimal(i, a.getClass().getSimpleName(), a.getAge());
+            ConsoleIO.afficherAnimal(i, a.getNom(), a.getAge());
         }
     }
 
@@ -182,7 +198,10 @@ public class Animalerie {
         ConsoleIO.afficherTitreListeEmployes();
         for (int i = 0; i < employes.size(); i++) {
             Employe e = employes.get(i);
-            ConsoleIO.afficherEmploye(i, e.getClass().getSimpleName());
+            String s;
+            if (i == 0){s = "Soigneur";} else
+            {s = "Vétérinaire";}
+            ConsoleIO.afficherEmploye(i, s, e.getNom());
         }
     }
 
@@ -219,5 +238,91 @@ public class Animalerie {
         employe.effectuerTache(animal);
 
         ConsoleIO.afficherTacheEffectuee();
+    }
+
+        public void creationConcours() {
+            if (concours != null) {
+                ConsoleIO.afficherErreur("Un concours existe déjà !");
+                return;
+            }
+
+            String nom = ConsoleIO.lireChaine("Nom du concours : ");
+            String lieu = ConsoleIO.lireChaine("Lieu : ");
+            int capacite = ConsoleIO.lireEntier("Capacité maximale : ");
+
+            concours = new Concours(nom, lieu, capacite);
+    }
+
+    public void ajouterAnimalConcours() {
+        if (concours == null) {
+            ConsoleIO.afficherErreur("Aucun concours actif. Créez-en un d'abord !");
+            return;
+        }
+
+        if (animaux.isEmpty()) {
+            ConsoleIO.afficherErreur("Aucun animal disponible.");
+            return;
+        }
+
+        // Afficher la liste des animaux existants
+        listerAnimaux();
+        int indexAnimal = ConsoleIO.lireEntier("Choisir un animal à inscrire : ");
+
+        // Vérifier que l'index est valide
+        if (indexAnimal < 0 || indexAnimal >= animaux.size()) {
+            ConsoleIO.afficherIndexAnimalInvalide(animaux.size() - 1);
+            return;
+        }
+
+        // Récupérer l'animal choisi
+        Animal a = animaux.get(indexAnimal);
+
+        // Vérifier si l'animal est SAIN
+        if (a.getSante() != EtatSante.SAIN) {
+            ConsoleIO.afficherErreur("Seuls les animaux en bonne santé peuvent participer !");
+            return;
+        }
+
+        // Ajouter aux participants
+        participants.add(a);
+        ConsoleIO.afficherMessage(a.getNom() + " inscrit au concours !");
+    }
+
+    public void afficherDetail () {
+
+            ConsoleIO.afficherTitreParticipantsConcours();
+            for (int i = 0; i < participants.size(); i++) {
+                Animal a = participants.get(i);
+                ConsoleIO.afficherAnimal(i, a.getNom(), a.getAge());
+            }
+            ConsoleIO.afficherDetail(concours);
+    }
+
+    public void lancerConcours() {
+        Concours concours = null;
+        concours = new Concours("fjso", "fdsf", 83);
+
+        if (participants.isEmpty()) {
+            ConsoleIO.afficherAucunParticipant();
+        } else {
+            Random random = new Random();
+
+            for (int i = participants.size() - 1; i > 0; i--) {
+                // Choisir un index aléatoire entre 0 et i
+                int j = random.nextInt(i + 1);
+
+                // Échanger les éléments aux positions i et j
+                Animal temp = participants.get(i);
+                participants.set(i, participants.get(j));
+                participants.set(j, temp);
+            }
+
+            // Afficher le classement
+            ConsoleIO.afficherMessage("\nClassement du concours :");
+            for (int i = 0; i < participants.size(); i++) {
+                Animal a = participants.get(i);
+                ConsoleIO.afficherMessage((i + 1) + ". " + a.getNom());
+            }
+        }
     }
 }
